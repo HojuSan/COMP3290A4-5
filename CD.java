@@ -52,9 +52,9 @@ public class CD
 		System.out.println();
 		pw.flush();
 		System.out.println();
-		
+
 		parser.getSymbol().getEntries().forEach((k, v) -> {
-			System.out.println("Key = " + k + " - " + v.getName()+" - "+ v.getType());
+			System.out.println("Key = " + k + " - Type = " + v.getType());
 		});
 
 		pw.close();

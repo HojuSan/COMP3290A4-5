@@ -99,6 +99,12 @@ public class Token {
 
 	public String getStr() { return str; }
 
+	public String getValue(int tid)
+	{
+		String s = TPRINT[tid];
+		return s;
+	}
+
 	//public StRec getSymbol() { return symbol; }
 
 	//public void setSymbol(StRec x) {symbol = x; }		// Used by the Parser to set the ST Ref field of the Token tuple

@@ -3,8 +3,12 @@
 CD19 a
 
 main
-    x : integer
+    x : integer,
+    ef : integer,
+    b : integer,
+    c : integer
 begin
+    a=3;
     printline "Hello world";
 end 
 

@@ -109,6 +109,13 @@ public class TreeNode {
 
 	public void setType(StRec st) { type = st; }
 
+	public String getNodeValue(TreeNode tr)
+	{
+		String fString=formatString(PRINTNODE[tr.nodeValue]);
+
+		return fString;
+	} 
+
 	static public String getString()
 	{
 		return s;

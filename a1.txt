@@ -2,12 +2,12 @@
 /--pretty self explanitory
 
 HelloWorld CD19
-
-integer a,
-integer b,
+integer a = 1,
+integer b = 2,
+integer c,
 boolean i main
 
-
+c = a;
 ; "HelloWorld" printline
 
 CD19 HelloWorld end

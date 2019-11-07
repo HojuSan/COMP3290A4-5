@@ -1,0 +1,4 @@
+StRec stRec = new StRec();
+stRec.setName(currentToken.getStr());
+stRec.setType(currentToken.getValue(currentToken.value()));
+symbolTable.put(stRec.getName(), stRec);
