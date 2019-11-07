@@ -49,7 +49,7 @@ public class Parser
 		
 		//Checks for the cd19 token
 		currentToken = scanner.nextToken();
-		stRec.setType(currentToken.getValue(currentToken.value()));
+		stRec.setType(currentToken.value());
 		if (!checkToken(Token.TCD19, "Missing CD19 Token")) 
 		{
 			if(debug == true){System.out.println("TCD19 error in program line: "+outPut.getLine()+" charPos "+outPut.getCharPos());}
@@ -70,7 +70,8 @@ public class Parser
 
 		//adds the new requirement to the symbol table,
 		node.setType(stRec);
-		symbolTable.put(stRec.getName(), stRec);
+		//the cd19 isn't needed in the symbol table
+		//symbolTable.put(stRec.getName(), stRec);
 
 		//uses the token then moves to the next
 		currentToken = scanner.nextToken();
@@ -114,8 +115,8 @@ public class Parser
 			return null;
 		}
 
-		stRec.setName(currentToken.getStr());
-		stRec.setType(currentToken.getValue(currentToken.value()));
+		stRec.setName("Consts");
+		stRec.setType(currentToken.value());
 		symbolTable.put(stRec.getName(), stRec);
 
 		//Consume token
@@ -168,7 +169,7 @@ public class Parser
 
 		//if error here check ordering
 		currentToken = scanner.nextToken();
-		stRec.setType(currentToken.getValue(currentToken.value()));
+		stRec.setType(currentToken.value());
 		node.setValue(TreeNode.NINIT);
 		symbolTable.put(stRec.getName(), stRec);
 		//node is no longer a NUNDEF, using new logic to prevent null pointer exceptions
@@ -204,7 +205,7 @@ public class Parser
 		//setting an array into the symbol table
 		StRec stRec = new StRec();
 		stRec.setName(currentToken.getStr());
-		stRec.setType(currentToken.getValue(currentToken.value()));
+		stRec.setType(currentToken.value());
 		symbolTable.put(stRec.getName(), stRec);
 
 		//Consume token
@@ -287,7 +288,7 @@ public class Parser
 			return node;
 		}
 
-		//stRec.setType(currentToken.getValue(currentToken.value()));
+		//stRec.setType(currentToken.value());
 		currentToken = scanner.nextToken();
 
 
@@ -349,8 +350,17 @@ public class Parser
 		//<type> <typelist>
 		if (currentToken.value() == Token.TIDEN)
 		{
+//			StRec stRec = new StRec();
+//			stRec.setName(currentToken.getStr());
+//			stRec.setType(TreeNode.NILIST);
+//			symbolTable.put(stRec.getName(), stRec);
 			return new TreeNode(TreeNode.NILIST, node, typelist());
 		}
+
+//		StRec stRec = new StRec();
+//		stRec.setName(currentToken.getStr());
+//		stRec.setType(currentToken.value());
+//		symbolTable.put(stRec.getName(), stRec);
 
 		//type 
 		return node;
@@ -389,7 +399,7 @@ public class Parser
 		//Check if NRTYPE node
 		if (currentToken.value() != Token.TARAY) // this is a struct
 		{
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 			symbolTable.put(stRec.getName(), stRec);
 			node.setSymbol(stRec);
 			node.setLeft(fields());
@@ -409,8 +419,8 @@ public class Parser
 		//Else NATYPE node
 		else //so this is a type
 		{
+			stRec.setType(currentToken.value());
 			currentToken = scanner.nextToken();
-			stRec.setType(currentToken.getValue(currentToken.value()));
 			symbolTable.put(stRec.getName(), stRec);
 			node.setSymbol(stRec);
 
@@ -451,7 +461,7 @@ public class Parser
 
 			//new type of stRec
 			stRec2.setName(currentToken.getStr());
-			stRec2.setType("Struct");
+			stRec2.setType(currentToken.value());
 			node.setType(stRec2);  // set node type
 			symbolTable.put(stRec2.getName(), stRec2);
 
@@ -508,15 +518,15 @@ public class Parser
 		//Check for integer|real|boolean token
 		if (currentToken.value() == Token.TINTG)
 		{
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 		}
 		else if (currentToken.value() == Token.TREAL)
 		{
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 		}
 		else if (currentToken.value() == Token.TBOOL)
 		{
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 		}
 		else
 		{
@@ -549,13 +559,13 @@ public class Parser
 		if (currentToken.value() == Token.TCOMA)
 		{
 			currentToken = scanner.nextToken();
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 			symbolTable.put(stRec.getName(), stRec);
 
 			return new TreeNode(TreeNode.NALIST, arrdecimal, arrdecls());
 		}
 
-		stRec.setType(currentToken.getValue(currentToken.value()));
+		stRec.setType(currentToken.value());
 		symbolTable.put(stRec.getName(), stRec);
 
 		return arrdecimal;
@@ -596,13 +606,14 @@ public class Parser
 		//setting node into arrdecimal then returning
 		node.setValue(TreeNode.NARRD);
 		//stRec.setType(currentToken.getStr());
-		stRec.setType(currentToken.getValue(currentToken.value()));
+		stRec.setType(currentToken.value());
 		node.setType(stRec);
 		node.setSymbol(stRec);
 
 		//update symbol table
 		symbolTable.put(stRec.getName(), stRec);
 		currentToken = scanner.nextToken();
+
 
 		return node;
 	}
@@ -666,21 +677,21 @@ public class Parser
 		//Check for rtype
 		if (currentToken.value() == Token.TINTG)
 		{
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 		}
 		else if (currentToken.value() == Token.TREAL)
 		{
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 		}
 		else if (currentToken.value() == Token.TBOOL)
 		{
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 		}
 		else if (currentToken.value() == Token.TVOID)  
 		{
 			//I HATE COMPILER DESIGN BECAUSE I CANNOT EAT SLEEP OR SHIT WITHOUT 
 			//THINKING OF WHY AM I DOING THIS TO MYSELF
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 		}
 		else
 		{
@@ -843,7 +854,7 @@ public class Parser
 		{
 			// NARRD
 			node.setValue(TreeNode.NARRD);
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
 		}
 		else	// NSDECL
 		{
@@ -851,17 +862,17 @@ public class Parser
 			if (currentToken.value() == Token.TINTG)
 			{
 				//node.setValue(TreeNode.NSDECL);
-				stRec.setType(currentToken.getValue(currentToken.value()));
+				stRec.setType(currentToken.value());
 			}
 			else if (currentToken.value() == Token.TREAL)
 			{
 				//node.setValue(TreeNode.NSDECL);
-				stRec.setType(currentToken.getValue(currentToken.value()));
+				stRec.setType(currentToken.value());
 			}
 			else if (currentToken.value() == Token.TBOOL)
 			{
 				//node.setValue(TreeNode.NSDECL);
-				stRec.setType(currentToken.getValue(currentToken.value()));
+				stRec.setType(currentToken.value());
 			}
 //			else if (currentToken.value() == Token.TIDEN)  
 //			{
@@ -1655,7 +1666,7 @@ public class Parser
 	private TreeNode exprtail(TreeNode left) 
 	{
 		TreeNode parent;
-		StRec stRec = new StRec();
+		//StRec stRec = new StRec();
 
 		if (currentToken.value() == Token.TPLUS)
 		{
@@ -1679,14 +1690,14 @@ public class Parser
 		}
 		else
 		{
-			if(left.getSymbol() == null)
-			{
-				return left;
-			}
-			
-			stRec.setName(left.getSymbol().getName());
-			stRec.setType(left.getNodeValue(left));
-			symbolTable.put(stRec.getName(), stRec);
+//			if(left.getSymbol() == null)
+//			{
+//				return left;
+//			}
+//
+//			stRec.setName(left.getSymbol().getName());
+//			stRec.setType(left.getNodeValue(left)+"Meep");
+//			symbolTable.put(stRec.getName(), stRec);
 			return left;
 
 		}
@@ -1776,6 +1787,7 @@ public class Parser
 		TreeNode node = new TreeNode(TreeNode.NUNDEF);
 		StRec stRec = new StRec();
 
+		//intlit
 		if (currentToken.value() == Token.TILIT)
 		{
 			node.setValue(TreeNode.NILIT);
@@ -1783,7 +1795,7 @@ public class Parser
 			//Consume token
 			currentToken = scanner.nextToken();
 			node.setSymbol(stRec);
-			symbolTable.put(stRec.getName(), stRec);
+			//symbolTable.put(stRec.getName(), stRec);
 
 			return node;
 		}
@@ -1795,7 +1807,7 @@ public class Parser
 			//Consume token
 			currentToken = scanner.nextToken();
 			node.setSymbol(stRec);
-			symbolTable.put(stRec.getName(), stRec);
+			//symbolTable.put(stRec.getName(), stRec);
 			return node;
 		}
 		else if (currentToken.value() == Token.TTRUE)
@@ -1925,12 +1937,13 @@ public class Parser
 			TreeNode node = new TreeNode(TreeNode.NSTRG);
 			StRec stRec = new StRec(currentToken.getStr());
 
-			stRec.setType(currentToken.getValue(currentToken.value()));
+			stRec.setType(currentToken.value());
+			symbolTable.put(stRec.getName(), stRec);
+			
 			currentToken = scanner.nextToken();
 			node.setSymbol(stRec);
 
 			node.setType(stRec);
-			symbolTable.put(stRec.getName(), stRec);
 
 			return node;
 		}

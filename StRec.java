@@ -6,17 +6,42 @@
 //     * Purpose:               Syntax Tree Requirements
 //      * Note:                 Pretty simple class
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Iterator;
+import java.util.Set;
+
 public class StRec
 {
 	//variables
+	private int column;
+	private int line;
 	private String name;
-	private String type;
+	//token int value
+	private int type;
+	private int tokenValue;
+
+	private Map<String, StRec> struct;
+	private Map<String, StRec> functionParam;
+	private Map<String, StRec> functionLocals;
+
+	private StRec arrayTypeId;
+	private StRec typeArayId;
+
+
+	//
+	private int count;
+	private SymbolTable scope;
 
 	//constructor
 	public StRec()
 	{
-		name = null;
-		type = null;
+		name = "";
+		type = TreeNode.NUNDEF;
+		tokenValue = Token.TUNDF;
+		column = 0 ;
+		line = 0;
+
 	}
 
 	//setters
@@ -29,7 +54,7 @@ public class StRec
 	{
 		this.name = name;
 	}
-	public void setType(String type)
+	public void setType(int type)
 	{
 		this.type = type;
 	}
@@ -41,6 +66,8 @@ public class StRec
 	}
 	public String getType()
 	{
-		return type;
+		TreeNode node = new TreeNode(type);
+
+		return node.getNodeValue(node);
 	}
 }
