@@ -1,0 +1,37 @@
+  1: /-- Using Simple Vars
+  2:   2: /-- I will accept either PASSING fine, or not passing and needing a 'missing SEMI' on Line 22
+  3:   3: 
+  4:   4: CD19 b
+  5:   5: 
+  6:   6: main
+  7:   7:     i : integer,
+  8:   8:     looping : boolean
+  9:   9: begin
+ 10:  10:     looping = true;
+ 11:  11:     
+ 12:  12:     /-- Increments i until it gets to value 8.
+ 13:  13:     for(i = 0 ; looping)
+ 14:  14:         i += 1;
+ 15:  15: 
+ 16:  16:         if(i >= 8)
+ 17:  17:             looping = false;
+ 18:  18:         end
+ 19:  19:     end
+ 20:  20: 
+ 21:  21:     /-- Printing value of i, should be 8.
+ 22:  22:     printline "value of i is ", i;
+ 23:  23: 
+ 24:  24: end 
+ 25:  25: 
+ 26:  26: CD19 b
+
+Parser has finished
+
+Preorder Traversal:
+
+NPROG  b      NMAIN  NSDLST NSDECL i      NSDECL looping       NSTATS 
+NASGN  NSIMV  looping       NTRUE  NSTATS NFOR   NASGN  NSIMV  i      
+NILIT  0      NSIMV  looping       NSTATS NPLEQ  NSIMV  i      NILIT  
+1      NIFTH  NGEQ   NSIMV  i      NILIT  8      NASGN  NSIMV  looping       
+NFALS  NPRLN  NPRLST NSTRG  "value of i is "     NSIMV  i      
+

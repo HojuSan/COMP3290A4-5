@@ -41,4 +41,11 @@ public class SymbolTable
 		return null;
 	}
 
+	public HashMap<String, StRec> getEntries() 
+	{
+        return table;
+    }
+
+	//create,destroy,enter,find,set_attributes,get_attributes
+
 }

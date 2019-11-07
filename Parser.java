@@ -30,6 +30,11 @@ public class Parser
 		symbolTable = new SymbolTable(null);
 	}
 
+	public SymbolTable getSymbol()
+	{
+		return symbolTable;
+	}
+
 	//main parts of the tree, global, functions, mainbody
 
 	//program instantiates the tree and the requirements
